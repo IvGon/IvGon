@@ -1,0 +1,122 @@
+1. GET запрос без параметров:
+	igon@kontur24:~/work/my_project/http-request$ ncat -C httpbin.org 80
+	GET /anything HTTP/1.1
+	HOST: httpbin.org
+
+	HTTP/1.1 200 OK
+	Date: Mon, 14 Feb 2022 15:37:18 GMT
+	Content-Type: application/json
+	Content-Length: 285
+	Connection: keep-alive
+	Server: gunicorn/19.9.0
+	Access-Control-Allow-Origin: *
+	Access-Control-Allow-Credentials: true
+
+	{
+	  "args": {}, 
+	  "data": "", 
+	  "files": {}, 
+	  "form": {}, 
+	  "headers": {
+	    "Host": "httpbin.org", 
+	    "X-Amzn-Trace-Id": "Root=1-620a772e-090678e26726fdd0455c9c5a"
+	  }, 
+	  "json": null, 
+	  "method": "GET", 
+	  "origin": "109.87.20.11", 
+	  "url": "http://httpbin.org/anything"
+	}
+  
+
+2. GET запрос с любыми параметрами строки URL:
+	igon@kontur24:~/work/my_project/http-request$ ncat -C httpbin.org 80
+	GET /anything?one=1 HTTP/1.1
+	Host: httpbin.org
+
+	HTTP/1.1 200 OK
+	Date: Mon, 14 Feb 2022 15:40:14 GMT
+	Content-Type: application/json
+	Content-Length: 309
+	Connection: keep-alive
+	Server: gunicorn/19.9.0
+	Access-Control-Allow-Origin: *
+	Access-Control-Allow-Credentials: true
+
+	{
+	  "args": {
+	    "one": "1"
+	  }, 
+	  "data": "", 
+	  "files": {}, 
+	  "form": {}, 
+	  "headers": {
+	    "Host": "httpbin.org", 
+	    "X-Amzn-Trace-Id": "Root=1-620a77de-6067c237591626cf1a507b5c"
+	  }, 
+	  "json": null, 
+	  "method": "GET", 
+	  "origin": "109.87.20.11", 
+	  "url": "http://httpbin.org/anything?one=1"
+	}
+
+
+3. POST запрос с  любыми параметрами:
+	igon@kontur24:~/work/my_project/http-request$ ncat -C httpbin.org 80
+	POST /anything HTTP/1.1
+	Host: httpbin.org
+	Content-Length: 11
+
+	name = IGon
+	HTTP/1.1 200 OK
+	Date: Mon, 14 Feb 2022 15:46:55 GMT
+	Content-Type: application/json
+	Content-Length: 326
+	Connection: keep-alive
+	Server: gunicorn/19.9.0
+	Access-Control-Allow-Origin: *
+	Access-Control-Allow-Credentials: true
+
+	{
+	  "args": {}, 
+	  "data": "name = IGon", 
+	  "files": {}, 
+	  "form": {}, 
+	  "headers": {
+	    "Content-Length": "11", 
+	    "Host": "httpbin.org", 
+	    "X-Amzn-Trace-Id": "Root=1-620a7963-63bf0d97186b183d5bf7a479"
+	  }, 
+	  "json": null, 
+	  "method": "POST", 
+	  "origin": "109.87.20.11", 
+	  "url": "http://httpbin.org/anything"
+	}
+
+
+4. HTTP-методы для создания/получения/обновления/удаления ресурса
+    POST — создание ресурса
+    GET — получение ресурса
+    PUT — обновление ресурса
+    DELETE — удаление ресурса
+
+
+5. Объясните в ответе на задание, что делают данные заголовки: Accept, Connection, Content-Type, User-Agent,   		Content-Length, Cache-Control и где они могут встречаться (в заголовках запроса, ответа, в обоих случаях).
+  5.1. Заголовок запроса Accept - указывает, какие типы контента. 
+	Accept: text/html
+  5.2. Заголовок запроса Connection - определяет, остаётся ли сетевое соединение активным 
+  	после завершения текущей запроса. 
+	Connection: keep-alive - сохранить соединение активным
+	Connection: close	- закрыть соединение.
+  5.3. Заголовок-сущность (запрос/ответ) Content-Type - сообщает клиенту, какой будет тип передаваемого контента.
+	Content-Type: text/html; charset=utf-8 - тип text/html, кодировка - utf-8.
+  5.4. Заголовок запроса User-Agent - сообщает характеристики пользователя: тип приложения, операционную систему, 
+	версию браузера.
+	"Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:93.0) Gecko/20100101 Firefox/93.0"
+  5.5.Заголовок сущности Content-Length - указывает размер отправленного получателю тела объекта в байтах.
+	Content-Length: 326
+  5.6. Cache-Control - используется для задания инструкций кеширования как для запросов, так и для ответов.
+	Cache-Control: no-cache - отправить запрос на сервер перед использованием закешированных данных.
+	Cache-Control: no-store - кеш не должен хранить никакую информацию о запросе и ответе.
+  5.7. Cache-Control - используется для задания инструкций кеширования как для запросов, так и для ответов.
+	Cache-Control: no-cache, no-store - для выключения кеширования.
+	
